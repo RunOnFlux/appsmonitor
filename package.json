@@ -1,0 +1,38 @@
+{
+  "name": "appsmonitor",
+  "version": "1.0.0",
+  "description": "Flux Apps Monitor. Get notified about status of your Flux Apps",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RunOnFlux/appsmonitor.git"
+  },
+  "keywords": [
+    "flux",
+    "apps",
+    "monitor"
+  ],
+  "author": "Flux Foundation (info@runonflux.io)",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/RunOnFlux/appsmonitor/issues"
+  },
+  "homepage": "https://github.com/RunOnFlux/appsmonitor#readme",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "mocha tests --timeout 10000",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix"
+  },
+  "dependencies": {
+    "axios": "^1.2.2",
+    "config": "^3.3.8",
+    "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "power-assert": "^1.6.1"
+  }
+}
