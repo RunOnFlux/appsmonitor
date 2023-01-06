@@ -10,5 +10,5 @@ module.exports = {
     key: identity.private_key,
     password: identity.apppassword,
   },
-  testnet: true,
+  testnet: identity.testnet || true,
 };
