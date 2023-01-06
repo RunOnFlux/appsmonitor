@@ -29,7 +29,7 @@ const mailOptions = {
 
 async function sendMail(recipient, subject, text) {
   try {
-    mailOptions.to = 'tadeas@runonflux.io'; // recipient;
+    mailOptions.to = config.testnet ? 'tadeas@runonflux.io' : recipient;
     mailOptions.subject = subject;
     mailOptions.text = text;
 

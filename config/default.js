@@ -1,4 +1,4 @@
-const identity = require('./identity');
+const identity = require('./identity'); // json identity
 
 module.exports = {
   email: {
@@ -9,5 +9,6 @@ module.exports = {
     client: identity.client_id,
     key: identity.private_key,
     password: identity.apppassword,
+    testnet: true,
   },
 };
