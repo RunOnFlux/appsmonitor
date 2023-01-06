@@ -1,7 +1,7 @@
 const log = require('./src/lib/log');
 
-const mailMonitor = require('./src/services/mailer');
+const appsMonitor = require('./src/services/appsMonitor');
 
-mailMonitor.start();
+appsMonitor.start();
 
 log.info('Apps Monitor started');

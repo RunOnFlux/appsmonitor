@@ -1,5 +1,6 @@
 const config = require('config');
 const nodemailer = require('nodemailer');
+const log = require('../lib/log');
 
 const transporter = nodemailer.createTransport({
   host: config.email.host,
@@ -20,22 +21,27 @@ const mailOptions = {
     name: config.email.from,
     address: config.email.email,
   },
-  to: 'tadeas@runonflux.io',
   cc: [],
-  subject: 'TEST APPS down',
-  text: 'Hello',
+  to: '',
+  subject: '',
+  text: '',
 };
 
-function start() {
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(`Email sent: ${info.response}`);
-    }
-  });
+async function sendMail(recipient, subject, text) {
+  try {
+    mailOptions.to = 'tadeas@runonflux.io'; // recipient;
+    mailOptions.subject = subject;
+    mailOptions.text = text;
+
+    const response = await transporter.sendMail(mailOptions);
+    log.info(`Email to ${recipient} about ${subject} sent.`);
+    return response;
+  } catch (error) {
+    log.error(error);
+    return null;
+  }
 }
 
 module.exports = {
-  start,
+  sendMail,
 };
