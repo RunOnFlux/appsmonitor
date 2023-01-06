@@ -9,6 +9,6 @@ module.exports = {
     client: identity.client_id,
     key: identity.private_key,
     password: identity.apppassword,
-    testnet: true,
   },
+  testnet: true,
 };
