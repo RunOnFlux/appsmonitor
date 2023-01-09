@@ -11,4 +11,8 @@ module.exports = {
     password: identity.apppassword,
   },
   testnet: identity.testnet || true,
+  discord: {
+    hook: identity.discordHook,
+    monitoredOwner: identity.discordOwner,
+  },
 };

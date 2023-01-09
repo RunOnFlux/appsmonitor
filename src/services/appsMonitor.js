@@ -1,6 +1,8 @@
 const axios = require('axios');
 const log = require('../lib/log');
 const mailer = require('./mailer');
+const discordNotifier = require('./discordNotifier');
+const serviceHelper = require('./serviceHelper');
 
 let cachedHeight = 0;
 
@@ -59,6 +61,10 @@ async function notifyExpiringApps() {
           emails.forEach((email) => {
             mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in less than ${hours} hours. Update your application specifications now otherwise the application will be removed from the network`);
           });
+          const expireIn = app.height + app.expire - height;
+          discordNotifier.sendHook(app.name, expireIn, app.owner);
+          // eslint-disable-next-line no-await-in-loop
+          await serviceHelper.delay(15000);
         }
       } catch (error) {
         log.error(error);

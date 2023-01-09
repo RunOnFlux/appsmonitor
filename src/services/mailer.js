@@ -34,7 +34,7 @@ async function sendMail(recipient, subject, text) {
     mailOptions.text = text;
 
     const response = await transporter.sendMail(mailOptions);
-    log.info(`Email to ${recipient} about ${subject} sent.`);
+    log.info(`Email to ${mailOptions.to} about ${mailOptions.subject} sent.`);
     return response;
   } catch (error) {
     log.error(error);
