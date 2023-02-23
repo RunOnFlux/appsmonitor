@@ -10,7 +10,7 @@ module.exports = {
     key: identity.private_key,
     password: identity.apppassword,
   },
-  testnet: identity.testnet || true,
+  testnet: identity.testnet,
   discord: {
     hook: identity.discordHook,
     monitoredOwner: identity.discordOwner,
