@@ -65,13 +65,13 @@ async function notifyExpiringApps() {
             emails.forEach((email) => {
               mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring today! Please update your application specifications now otherwise the application will be removed from the network`);
             });
+            const expireIn = app.height + app.expire - height;
+            discordNotifier.sendHook(app.name, expireIn, app.owner);
           } else if (app.height + app.expire < height + 360 && app.height + app.expire > height + 330) {
             emails.forEach((email) => {
               mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring within next hour! Please update your application specifications now otherwise the application will be removed from the network`);
             });
           }
-          const expireIn = app.height + app.expire - height;
-          discordNotifier.sendHook(app.name, expireIn, app.owner);
           // eslint-disable-next-line no-await-in-loop
           await serviceHelper.delay(15000);
         }
