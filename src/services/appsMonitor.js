@@ -45,22 +45,31 @@ async function notifyExpiringApps() {
     // eslint-disable-next-line no-restricted-syntax
     for (const app of apps) {
       try {
-        if (app.height + app.expire < height + 2160) {
-          let hours = 72;
-          if (app.height + app.expire < height + 1440) {
-            hours = 48;
-          } else if (app.height + app.expire < height + 720) {
-            hours = 24;
-          } else if (app.height + app.expire < height + 360) {
-            hours = 12;
-          }
+        if (app.height + app.expire < height + 3500) {
           const emails = app.contacts.filter((contact) => contact.includes('@'));
           if (!emails.length) {
             log.warn(`${app.name} expiring soon but no email provided to notify`);
+          } else if (app.height + app.expire < height + 3500 && app.height + app.expire < height + 3470) {
+            emails.forEach((email) => {
+              mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in less than 5 day. Please update your application specifications now otherwise the application will be removed from the network`);
+            });
+          } else if (app.height + app.expire < height + 2160 && app.height + app.expire < height + 2130) {
+            emails.forEach((email) => {
+              mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in less than 3 day. Please update your application specifications now otherwise the application will be removed from the network`);
+            });
+          } else if (app.height + app.expire < height + 1440 && app.height + app.expire < height + 1410) {
+            emails.forEach((email) => {
+              mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in the next 48 hours. Please update your application specifications now otherwise the application will be removed from the network`);
+            });
+          } else if (app.height + app.expire < height + 720 && app.height + app.expire > height + 690) {
+            emails.forEach((email) => {
+              mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring today! Please update your application specifications now otherwise the application will be removed from the network`);
+            });
+          } else if (app.height + app.expire < height + 360 && app.height + app.expire > height + 330) {
+            emails.forEach((email) => {
+              mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring within next hour! Please update your application specifications now otherwise the application will be removed from the network`);
+            });
           }
-          emails.forEach((email) => {
-            mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in less than ${hours} hours. Update your application specifications now otherwise the application will be removed from the network`);
-          });
           const expireIn = app.height + app.expire - height;
           discordNotifier.sendHook(app.name, expireIn, app.owner);
           // eslint-disable-next-line no-await-in-loop
@@ -79,7 +88,7 @@ function start() {
   notifyExpiringApps();
   setInterval(() => {
     notifyExpiringApps();
-  }, 8 * 60 * 60 * 1000); // every 8 hours;
+  }, 1 * 60 * 60 * 1000); // every 1 hour
 }
 
 module.exports = {
