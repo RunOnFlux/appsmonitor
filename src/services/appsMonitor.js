@@ -49,15 +49,15 @@ async function notifyExpiringApps() {
           const emails = app.contacts.filter((contact) => contact.includes('@'));
           if (!emails.length) {
             log.warn(`${app.name} expiring soon but no email provided to notify`);
-          } else if (app.height + app.expire < height + 3500 && app.height + app.expire < height + 3470) {
+          } else if (app.height + app.expire < height + 3500 && app.height + app.expire > height + 3470) {
             emails.forEach((email) => {
               mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in less than 5 day. Please update your application specifications now otherwise the application will be removed from the network`);
             });
-          } else if (app.height + app.expire < height + 2160 && app.height + app.expire < height + 2130) {
+          } else if (app.height + app.expire < height + 2160 && app.height + app.expire > height + 2130) {
             emails.forEach((email) => {
               mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in less than 3 day. Please update your application specifications now otherwise the application will be removed from the network`);
             });
-          } else if (app.height + app.expire < height + 1440 && app.height + app.expire < height + 1410) {
+          } else if (app.height + app.expire < height + 1440 && app.height + app.expire > height + 1410) {
             emails.forEach((email) => {
               mailer.sendMail(email, `Application ${app.name} is expiring`, `Your application ${app.name} is expiring in the next 48 hours. Please update your application specifications now otherwise the application will be removed from the network`);
             });
